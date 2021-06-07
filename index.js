@@ -39,6 +39,7 @@ app.command('/quest', async ({ command, ack, say }) => {
                 {
                     "name": "Approve",
                     "text": "Approve",
+                    "style": "primary",
                     "type": "button",
                     "value": "approve",
                     "confirm": {
@@ -145,6 +146,7 @@ app.message('quest inform', async ({ message, say }) => {
                 {
                     "name": "Approve",
                     "text": "Approve",
+                    "style": "primary",
                     "type": "button",
                     "value": "approve",
                     "confirm": {
