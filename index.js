@@ -8,41 +8,42 @@ const app = new App({
 
 /* Add functionality here */
 
-// Listens to incoming messages that contain "hello"
-app.message('hey', async ({ message, say }) => {
-  // say() sends a message to the channel where the event was triggered
-  await say(`Mày kêu tao ah <@${message.user}>!`);
+// The echo command simply echoes on command
+app.command('/quest', async ({ command, ack, say }) => {
+  // Acknowledge command request
+  await ack();
+  console.log(command.text)
+
   await say({
-    "text": "Would you like to play a game?",
     "attachments": [
         {
-            "text": "Choose a game to play",
+            "text": `mày muốn approve quest *${command.text}* ah.`,
             "fallback": "You are unable to choose a game",
             "callback_id": "wopr_game",
             "color": "#3AA3E3",
             "attachment_type": "default",
             "actions": [
                 {
-                    "name": "game",
-                    "text": "Chess",
-                    "type": "button",
-                    "value": "chess"
+                  "name": "Disapprove",
+                  "text": "Disapprove",
+                  "style": "danger",
+                  "type": "button",
+                  "value": "disapprove",
+                  "confirm": {
+                      "title": "Mày ko muốn approve ah?",
+                      "text": "Mày ko muốn approve ah?",
+                      "ok_text": "Yes",
+                      "dismiss_text": "No"
+                  }
                 },
                 {
-                    "name": "game",
-                    "text": "Falken's Maze",
+                    "name": "Approve",
+                    "text": "Approve",
                     "type": "button",
-                    "value": "maze"
-                },
-                {
-                    "name": "game",
-                    "text": "Thermonuclear War",
-                    "style": "danger",
-                    "type": "button",
-                    "value": "war",
+                    "value": "approve",
                     "confirm": {
-                        "title": "Are you sure?",
-                        "text": "Wouldn't you prefer a good game of chess?",
+                        "title": "Mày có chắc là muốn approve ko đó?",
+                        "text": "Mày có chắc là muốn approve ko đó?",
                         "ok_text": "Yes",
                         "dismiss_text": "No"
                     }
@@ -51,6 +52,12 @@ app.message('hey', async ({ message, say }) => {
         }
     ]
   });
+});
+
+// Listens to incoming messages that contain "hello"
+app.message('hey', async ({ message, say }) => {
+  // say() sends a message to the channel where the event was triggered
+  await say(`Mày kêu tao ah <@${message.user}>!`);
 });
 
 // Listens to incoming messages that contain "hello"
